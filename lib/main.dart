@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Avato',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: GoogleFonts.poppins(fontWeight: FontWeight.normal).fontFamily,
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent,elevation: 0),
+        
         useMaterial3: true,
       ),
       home: Text('data')
