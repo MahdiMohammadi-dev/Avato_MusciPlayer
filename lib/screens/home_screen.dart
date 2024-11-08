@@ -1,5 +1,6 @@
 import 'package:avato/constant/app_colors.dart';
 import 'package:avato/controllers/player_controller.dart';
+import 'package:avato/screens/player_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -59,8 +60,8 @@ class HomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Obx(()=>
-                            ListTile(
+                        child: Obx(
+                          () => ListTile(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12)),
                             tileColor: bgColor,
@@ -72,25 +73,33 @@ class HomeScreen extends StatelessWidget {
                                   color: whiteColor),
                             ),
                             subtitle: Text(
-                                snapshot.data![index].artist ?? 'Unknown Artist',
+                                snapshot.data![index].artist ??
+                                    'Unknown Artist',
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.normal,
                                     color: whiteColor)),
                             leading: QueryArtworkWidget(
                                 id: snapshot.data![index].id,
                                 artworkBorder: BorderRadius.circular(12),
-
                                 type: ArtworkType.AUDIO,
                                 nullArtworkWidget: const Icon(Icons.music_note,
                                     color: whiteColor, size: 32)),
-                            trailing:
-                            controller.playIndex.value == index &&controller.isPlaying.value ?
-                            const Icon(
-                              Icons.play_arrow,
-                              color: whiteColor,
-                              size: 26,
-                            ):null,
+                            trailing: controller.playIndex.value == index &&
+                                    controller.isPlaying.value
+                                ? const Icon(
+                                    Icons.play_arrow,
+                                    color: whiteColor,
+                                    size: 26,
+                                  )
+                                : null,
                             onTap: () {
+
+                              Get.to(
+                                  PlayerScreen(
+                                      songModel: snapshot.data!),
+                                  transition: Transition.downToUp,
+                                  duration: Duration(seconds: 1),
+                                  curve: Curves.bounceIn);
                               controller.playSongs(snapshot.data![index].uri,index);
                             },
                           ),
